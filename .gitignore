@@ -1,0 +1,7 @@
+*.pyc
+recipes.db
+settings.py
+
+recipeList/models.py.django.monodb
+
+recipeList/models.py.recipeengine

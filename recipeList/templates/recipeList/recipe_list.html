@@ -1,0 +1,8 @@
+<h1>Recipe Overview</h1>
+{% for recipe in recipe_list %}
+  <h2><a href="{% url recipe_detail recipe.id %}">{{ recipe.name }}</a></h2>
+  <p>
+    {{ recipe.created_on }} |
+    {{ recipe.ingredients|length }} ingredients
+  </p>
+{% endfor %}

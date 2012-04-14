@@ -1,0 +1,6 @@
+<h2>Ingredients</h2>
+<ul>
+{% for item in items %}
+  <li>{{ item.recipe__ingredient__name }}, {{ item.recipe__ingredient__value__sum }} {{ item.recipe__ingredient__unit }}</li>
+{% endfor %}
+</ul>

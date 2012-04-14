@@ -1,0 +1,15 @@
+<h1>{{ recipe.name }} - {{ recipe.cookingTime }} minutes</h1>
+<p>{{ recipe.created_on }}</p>
+<h2>Ingredients</h2>
+<ul>
+{% for ingredient in recipe.ingredient_set.all %}
+  <li>{{ ingredient.name }} - {{ ingredient.value }} {{ ingredient.unit }} {{ ingredient.instruction }}</li>
+{% endfor %}
+</ul>
+
+<h2>Instructions</h2>
+<ul>
+{% for instruction in recipe.instruction_set.all %}
+  <li>{{ instruction.text }}</li>
+{% endfor %}
+</ul>
