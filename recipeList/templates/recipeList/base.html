@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-responsive.css" />
+    <title>{% block title %} | Recipes{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        <div class="hero-unit">
+          <h1>Recipe List</h1>
+        </div>
+    </header>
+	<div id="content" class="container">
+		<div class="row-fluid">
+			<div class="span2">
+				<ul class="nav nav-list">
+					<li>
+						<a href="/">Recipe List</a>
+					</li>
+					<li>
+						<a href="/today">Today's Meals</a>
+					</li>
+					<li>
+						<a href="/meals">All Meals</a>
+					</li>
+					<li>
+						<a href="/shoppinglist">Shopping List</a>
+					</li>
+				</ul>
+			</div>
+			<div class="span10">
+				{% block content %}{% endblock %}
+			</div>
+		</div>    
+    </div>
+    <footer>
+    </footer>
+</body>
+</html>

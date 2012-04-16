@@ -1,6 +1,12 @@
-<h2>Ingredients</h2>
+{% extends "recipeList/base.html" %}
+
+{% block title %}Shopping List: {{ dateFrom|date:'m/d/Y' }} - {{ dateTo|date:'m/d/Y' }}{% endblock %}
+
+{% block content %}
+<h2>Shopping List: {{ dateFrom|date:'m/d/Y' }} - {{ dateTo|date:'m/d/Y' }}</h2>
 <ul>
 {% for item in items %}
   <li>{{ item.recipe__ingredient__name }}, {{ item.recipe__ingredient__value__sum }} {{ item.recipe__ingredient__unit }}</li>
 {% endfor %}
 </ul>
+{% endblock %}

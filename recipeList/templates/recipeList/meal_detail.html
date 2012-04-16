@@ -1,0 +1,52 @@
+{% extends "recipeList/base.html" %}
+
+{% block title %}{{meal.recipe.name}} - {{ meal.date|date:'Y-m-d' }}{% endblock %}
+
+{% block content %}
+<h1>{{ meal.recipe.name }}{% if meal.avg_rating %} -  {{ meal.avg_rating|floatformat }} stars{% endif %}</h1>
+<span>{{ meal.date|date:'m/d/Y' }}</span>
+
+<form method="POST" class="well form-horizontal">
+	<fieldset>
+		<div class="control-group">
+			<label class="control-label" for="star">Stars</label>
+			<div class="controls">
+				<input name="star" type="radio" class="star" value="1"/>
+				<input name="star" type="radio" class="star" value="2"/>
+				<input name="star" type="radio" class="star" value="3"/>
+				<input name="star" type="radio" class="star" value="4"/>
+				<input name="star" type="radio" class="star" value="5"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="name">Name</label>
+			<div class="controls">
+				<input name="name" type="text" placeholder="Name..."/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="body">Comment</label>
+			<div class="controls">
+				<textarea name="body" type="text" rows="10" class="span8"></textarea>
+			</div>
+		</div>
+		<input type="submit" />
+		{% csrf_token %}
+	</fieldset>
+</form>
+
+<h2>Ratings</h2>
+<ul>
+{% for rating in meal.rating_set.all %}
+	<li>{{ rating.stars }}</li>
+{% endfor %}
+</ul>
+
+<h2>Comments</h2>
+<ul>
+{% for comment in meal.comment_set.all %}
+	<li>{{ comment.name }}: {{ comment.body }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
+

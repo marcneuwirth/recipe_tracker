@@ -39,7 +39,7 @@ class Meal(models.Model):
 
 
 class Rating(models.Model):
-    create_date = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     stars = models.IntegerField()
     meal = models.ForeignKey(Meal)
 
@@ -48,6 +48,7 @@ class Rating(models.Model):
 
 
 class Comment(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200)
     body = models.TextField()
     meal = models.ForeignKey(Meal)

@@ -1,0 +1,16 @@
+{% extends "recipeList/base.html" %}
+
+{% block title %}Meals{% endblock %}
+
+{% block content %}
+{% if today %}
+<h1>Today's Meals</h1>
+{% else %}
+<h1>All Meals</h1>
+{% endif %}
+<ul>
+{% for meal in meal_list %}
+  <li><a href="{% url meal_detail meal.id %}">{{ meal.date|date:'m/d/Y'}}</a>: <a href="{% url recipe_detail meal.recipe.id %}">{{ meal.recipe.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

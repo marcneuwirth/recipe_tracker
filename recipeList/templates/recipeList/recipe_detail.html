@@ -1,9 +1,13 @@
+{% extends "recipeList/base.html" %}
+
+{% block title %}{{recipe.name}} Recipe{% endblock %}
+
+{% block content %}
 <h1>{{ recipe.name }} - {{ recipe.cookingTime }} minutes</h1>
-<p>{{ recipe.created_on }}</p>
 <h2>Ingredients</h2>
 <ul>
 {% for ingredient in recipe.ingredient_set.all %}
-  <li>{{ ingredient.name }} - {{ ingredient.value }} {{ ingredient.unit }} {{ ingredient.instruction }}</li>
+  <li><a href="{% url ingredient_detail ingredient.id %}">{{ ingredient.name }}</a> - {{ ingredient.value }} {{ ingredient.unit }} {{ ingredient.instruction }}</li>
 {% endfor %}
 </ul>
 
@@ -13,3 +17,12 @@
   <li>{{ instruction.text }}</li>
 {% endfor %}
 </ul>
+
+<h2>Scheduled Meals</h2>
+<ul>
+{% for meal in recipe.meal_set.all %}
+  <li><a href="{% url meal_detail meal.id %}">{{ meal.date|date:'m/d/Y' }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
