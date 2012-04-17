@@ -3,7 +3,7 @@ from django.template import RequestContext
 from dateutil.relativedelta import relativedelta
 from django.db.models import Sum, Avg
 from recipeList.models import *
-from datetime import datetime
+from datetime import datetime, date
 
 
 def shopping_list(request, year=None, month=None, day=None):
@@ -11,9 +11,9 @@ def shopping_list(request, year=None, month=None, day=None):
         year = int(year)
         month = int(month)
         day = int(day)
-        dateFrom = datetime(year, month, day)
+        dateFrom = date(year, month, day)
     except:
-        dateFrom = datetime.today()
+        dateFrom = date.today()
 
     dateTo = dateFrom + relativedelta(days=6)
 
@@ -41,7 +41,7 @@ def meal_detail(request, pk):
 
 
 def today(request):
-    today = datetime.today()
+    today = date.today()
     tomorrow = today + relativedelta(days=1)
     meal_list = Meal.objects.filter(date__gte=today, date__lt=tomorrow)
     return render_to_response('recipeList/meal_list.html', {'meal_list': meal_list, 'today': today}, RequestContext(request))
