@@ -8,11 +8,11 @@ $(document).ready(function(){
 		$.getJSON('/ingredients.json', function(json){
 			var ingredients = json.ingredients;
 
-			$("#ingredient_set-group .name .vTextField").autocomplete({
+			$("#ingredient_set-group .field-name .vTextField").autocomplete({
 				source: ingredients
 			});
 		});
 
-		$('.unit select').chosen();
+		$('.field-unit select').chosen();
 	}
 });

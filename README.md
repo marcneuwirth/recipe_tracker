@@ -1,5 +1,5 @@
 # Recipe Tracker
 
 Requires
-- [django](https://www.djangoproject.com/)
+- [django 1.4](https://www.djangoproject.com/)
 - [python-dateutil](http://labix.org/python-dateutil)

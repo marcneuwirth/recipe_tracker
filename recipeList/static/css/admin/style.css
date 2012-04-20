@@ -1,13 +1,22 @@
-#ingredient_set-group .name {
+#user-tools {
+	padding: 3px;
+	background: #333;
+}
+
+#container {
+	position: inherit;
+}
+
+#ingredient_set-group .field-name {
 	width: 50%;
 }
-#ingredient_set-group .unit {
+#ingredient_set-group .field-unit {
 	width: 20%;
 }
 
-#ingredient_set-group .name .vTextField,
-#ingredient_set-group .unit select,
-#instruction_set-group .text .vTextField {
+#ingredient_set-group .field-name .vTextField,
+#ingredient_set-group .field-unit select,
+#instruction_set-group .field-text .vTextField {
 	width: 90%;
 }
 
