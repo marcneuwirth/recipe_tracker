@@ -29,7 +29,6 @@ def ingredient_detail(request, pk):
 
 def all_ingredients(request):
     ingredients = Ingredient.objects.all().values('name').annotate(Count("id")).order_by()
-    print ingredients[0]['name'];
     return render_to_response('recipeList/ingredients_list.json', {'ingredients': ingredients}, mimetype="application/json")
 
 
