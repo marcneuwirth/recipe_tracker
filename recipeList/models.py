@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 
 class Recipe(models.Model):
@@ -7,7 +8,7 @@ class Recipe(models.Model):
     cookingTime = models.IntegerField()
 
     def __unicode__(self):
-        return '%s (%s)' % (self.created_on, self.name)
+        return '%s' % (self.name)
 
 
 UNITS = (
@@ -35,7 +36,7 @@ class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe)
 
     def __unicode__(self):
-        return '%s (%s)' % (self.name, self.value)
+        return '%s' % (self.name)
 
 
 class Instruction(models.Model):
@@ -52,7 +53,7 @@ class Meal(models.Model):
     recipe = models.ForeignKey(Recipe)
 
     def __unicode__(self):
-        return '%s (%s)' % (self.date, self.pricePerServing)
+        return '%s' % (self.date)
 
 STARS = (
     ('1', 1),
@@ -69,7 +70,7 @@ class Rating(models.Model):
     meal = models.ForeignKey(Meal)
 
     def __unicode__(self):
-        return '%s (%s)' % (self.created_on, self.stars)
+        return '%s' % (self.stars)
 
 
 class Comment(models.Model):
@@ -79,4 +80,5 @@ class Comment(models.Model):
     meal = models.ForeignKey(Meal)
 
     def __unicode__(self):
-        return '%s (%s)' % (self.name, self.body)
+        return '%s' % (self.name)
+

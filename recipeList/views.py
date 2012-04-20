@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from dateutil.relativedelta import relativedelta
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, Count
 from recipeList.models import *
 from datetime import datetime, date
 
@@ -25,6 +25,12 @@ def ingredient_detail(request, pk):
     ingredient = Ingredient.objects.get(pk=pk)
     recipe_list = Recipe.objects.filter(ingredient__pk=pk)
     return render_to_response('recipeList/recipe_list.html', {'recipe_list': recipe_list, 'ingredient': ingredient}, RequestContext(request))
+
+
+def all_ingredients(request):
+    ingredients = Ingredient.objects.all().values('name').annotate(Count("id")).order_by()
+    print ingredients[0]['name'];
+    return render_to_response('recipeList/ingredients_list.json', {'ingredients': ingredients}, mimetype="application/json")
 
 
 def meal_detail(request, pk):

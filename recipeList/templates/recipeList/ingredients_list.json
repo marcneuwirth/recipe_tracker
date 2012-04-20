@@ -1,0 +1,1 @@
+{"ingredients":[{% for ingredient in ingredients %}"{{ ingredient.name }}"{% if not forloop.last %},{% endif %}{% endfor %}]}

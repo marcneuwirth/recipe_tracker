@@ -1,0 +1,24 @@
+#ingredient_set-group .name {
+	width: 50%;
+}
+#ingredient_set-group .unit {
+	width: 20%;
+}
+
+#ingredient_set-group .name .vTextField,
+#ingredient_set-group .unit select,
+#instruction_set-group .text .vTextField {
+	width: 90%;
+}
+
+.form-row {
+	overflow: initial;
+}
+
+#id_recipe {
+	width: 30%;
+}
+
+.ui-autocomplete li {
+	list-style: none;
+}

@@ -10,7 +10,6 @@ meal_list = ListView.as_view(model=Meal)
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-admin.autodiscover()
 
 
 class IngredientInline(admin.TabularInline):
@@ -24,11 +23,21 @@ class InstructionInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     inlines = [IngredientInline, InstructionInline]
 
-admin.site.register(Recipe, RecipeAdmin)
 
-admin.site.register(Meal)
-admin.site.register(Rating)
-admin.site.register(Comment)
+class CommentInline(admin.TabularInline):
+    model = Comment
+
+
+class RatingInline(admin.TabularInline):
+    model = Rating
+
+
+class MealAdmin(admin.ModelAdmin):
+    inlines = [CommentInline, RatingInline]
+
+admin.autodiscover()
+admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Meal, MealAdmin)
 
 urlpatterns = patterns('',
     url(r'^recipe/(?P<pk>[a-z\d]+)/$', recipe_detail, name='recipe_detail'),
@@ -41,6 +50,7 @@ urlpatterns = patterns('',
     url(r'^shoppinglist/$', 'recipeList.views.shopping_list', name='shoppinglistNow'),
 
     url(r'^ingredient/(?P<pk>[a-z\d]+)/$', 'recipeList.views.ingredient_detail', name='ingredient_detail'),
+    url(r'^ingredients\.json$', 'recipeList.views.all_ingredients', name='all_ingredients'),
 
     url(r'^today/$', 'recipeList.views.today', name='today'),
     # Examples:
