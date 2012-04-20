@@ -22,6 +22,8 @@ UNITS = (
     ('gallon', 'gallon'),
     ('in', 'in'),
     ('slices', 'slices'),
+    ('clove', 'clove'),
+    ('bunch', 'bunch'),
 )
 
 
