@@ -29,9 +29,9 @@ UNITS = (
 
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=200)
     value = models.FloatField()
     unit = models.CharField(max_length=32, null=True, blank=True, choices=UNITS)
+    name = models.CharField(max_length=200)
     instruction = models.CharField(max_length=200, null=True, blank=True)
     recipe = models.ForeignKey(Recipe)
 

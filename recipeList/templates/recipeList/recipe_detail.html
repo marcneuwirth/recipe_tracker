@@ -7,7 +7,7 @@
 <h2>Ingredients</h2>
 <ul>
 {% for ingredient in recipe.ingredient_set.all %}
-  <li><a href="{% url ingredient_detail ingredient.id %}">{{ ingredient.name }}</a> - {{ ingredient.value }} {{ ingredient.unit }} {{ ingredient.instruction }}</li>
+  <li><a href="{% url ingredient_detail ingredient.id %}">{{ ingredient.name }}</a>: {{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} - <em>{{ ingredient.instruction }}</em></li>
 {% endfor %}
 </ul>
 
