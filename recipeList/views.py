@@ -23,7 +23,7 @@ def shopping_list(request, year=None, month=None, day=None):
 
 def ingredient_detail(request, pk):
     ingredient = Ingredient.objects.get(pk=pk)
-    recipe_list = Recipe.objects.filter(ingredient__pk=pk)
+    recipe_list = Recipe.objects.filter(ingredient__name=ingredient.name)
     return render_to_response('recipeList/recipe_list.html', {'recipe_list': recipe_list, 'ingredient': ingredient}, RequestContext(request))
 
 

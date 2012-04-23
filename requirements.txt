@@ -1,0 +1,10 @@
+DateUtils==0.5.1
+Django==1.4
+django-mongodb-engine==0.4.0
+djangotoolbox==0.9.2
+mongoengine==0.6.3
+pymongo==2.1.1
+python-dateutil==2.1
+pytz==2012b
+six==1.1.0
+wsgiref==0.1.2
