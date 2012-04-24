@@ -35,18 +35,21 @@
 	</fieldset>
 </form>
 
+{% if meal.rating_set.all|length > 0 %}
 <h2>Ratings</h2>
 <ul>
 {% for rating in meal.rating_set.all %}
 	<li>{{ rating.stars }}</li>
 {% endfor %}
 </ul>
-
+{% endif %}
+{% if meal.comment_set.all|length > 0 %}
 <h2>Comments</h2>
 <ul>
 {% for comment in meal.comment_set.all %}
 	<li>{{ comment.name }}: {{ comment.body }}</li>
 {% endfor %}
 </ul>
+{% endif %}
 {% endblock %}
 

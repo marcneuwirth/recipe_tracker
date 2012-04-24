@@ -6,6 +6,8 @@ class Recipe(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200)
     cookingTime = models.IntegerField()
+    reference = models.URLField(null=True, blank=True)
+    instruction = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return '%s' % (self.name)
@@ -25,6 +27,8 @@ UNITS = (
     ('slices', 'slices'),
     ('clove', 'clove'),
     ('bunch', 'bunch'),
+    ('pinch', 'pinch'),
+    ('can', 'can'),
 )
 
 
@@ -37,14 +41,6 @@ class Ingredient(models.Model):
 
     def __unicode__(self):
         return '%s' % (self.name)
-
-
-class Instruction(models.Model):
-    text = models.CharField(max_length=200)
-    recipe = models.ForeignKey(Recipe)
-
-    def __unicode__(self):
-        return '%s' % (self.text)
 
 
 class Meal(models.Model):

@@ -14,22 +14,21 @@ from django.contrib import admin
 
 class IngredientInline(admin.TabularInline):
     model = Ingredient
-
-
-class InstructionInline(admin.TabularInline):
-    model = Instruction
+    extra = 10
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = [IngredientInline, InstructionInline]
+    inlines = [IngredientInline]
 
 
 class CommentInline(admin.TabularInline):
     model = Comment
+    extra = 0
 
 
 class RatingInline(admin.TabularInline):
     model = Rating
+    extra = 0
 
 
 class MealAdmin(admin.ModelAdmin):

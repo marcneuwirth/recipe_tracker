@@ -1,12 +1,18 @@
 {% extends "recipeList/base.html" %}
 
-{% block title %}Shopping List: {{ dateFrom|date:'m/d/Y' }} - {{ dateTo|date:'m/d/Y' }}{% endblock %}
+{% block title %}Shopping List: {{ dateFrom|date:'m/d' }} - {{ dateTo|date:'m/d' }}{% endblock %}
 
 {% block content %}
-<h1>Shopping List: {{ dateFrom|date:'m/d/Y' }} - {{ dateTo|date:'m/d/Y' }}</h1>
-<ul>
+<h1>Shopping List</h1>
+<h2>{{ dateFrom|date:'m/d' }} - {{ dateTo|date:'m/d' }}</h2>
+<ul class="unstyled">
 {% for item in items %}
-  <li>{{ item.recipe__ingredient__name }}, {{ item.recipe__ingredient__value__sum }} {{ item.recipe__ingredient__unit|default_if_none:"" }}</li>
+  <li>
+  	<label class="checkbox">
+		<input type="checkbox" />
+		{{ item.recipe__ingredient__name }}, {{ item.recipe__ingredient__value__sum }} {{ item.recipe__ingredient__unit|default_if_none:"" }}
+	</label>
+  </li>
 {% endfor %}
 </ul>
 {% endblock %}

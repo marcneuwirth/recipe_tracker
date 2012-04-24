@@ -2,27 +2,26 @@
 
 {% block title %}{{recipe.name}} Recipe{% endblock %}
 
+{% load markup %}
 {% block content %}
 <h1>{{ recipe.name }} - {{ recipe.cookingTime }} minutes</h1>
 <h2>Ingredients</h2>
 <ul>
 {% for ingredient in recipe.ingredient_set.all %}
-  <li><a href="{% url ingredient_detail ingredient.id %}">{{ ingredient.name }}</a>: {{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} - <em>{{ ingredient.instruction }}</em></li>
+  <li><a href="{% url ingredient_detail ingredient.id %}">{{ ingredient.name }}</a>: {{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} {% if ingredient.instruction %}- <em>{{ ingredient.instruction }}</em>{% endif %}</li>
 {% endfor %}
 </ul>
 
 <h2>Instructions</h2>
-<ul>
-{% for instruction in recipe.instruction_set.all %}
-  <li>{{ instruction.text }}</li>
-{% endfor %}
-</ul>
+<p>{{ recipe.instruction|markdown }}</p>
 
+{% if recipe.meal_set.all|length > 0 %}
 <h2>Scheduled Meals</h2>
 <ul>
 {% for meal in recipe.meal_set.all %}
   <li><a href="{% url meal_detail meal.id %}">{{ meal.date|date:'m/d/Y' }}</a></li>
 {% endfor %}
 </ul>
+{% endif %}
 
 {% endblock %}

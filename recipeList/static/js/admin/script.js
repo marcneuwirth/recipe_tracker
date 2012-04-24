@@ -8,11 +8,22 @@ $(document).ready(function(){
 		$.getJSON('/ingredients.json', function(json){
 			var ingredients = json.ingredients;
 
-			$("#ingredient_set-group .field-name .vTextField").autocomplete({
-				source: ingredients
+			var autocomplete = function(){
+				$("#ingredient_set-group .dynamic-ingredient_set .field-name .vTextField").autocomplete({
+					source: ingredients
+				});
+			};
+
+			$('.add-row a').on('click', function(){
+				autocomplete();
+			});
+			autocomplete();
+
+			$('.dynamic-ingredient_set .field-unit select').chosen();
+
+			$('.add-row a').on('click', function(){
+				$('.dynamic-ingredient_set .field-unit select').chosen();
 			});
 		});
-
-		$('.field-unit select').chosen();
 	}
 });
