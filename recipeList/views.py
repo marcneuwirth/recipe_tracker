@@ -17,14 +17,13 @@ def shopping_list(request, year=None, month=None, day=None):
 
     dateTo = dateFrom + relativedelta(days=6)
 
-    items = Meal.objects.filter(date__gte=dateFrom, date__lt=dateTo).values('recipe__ingredient__name', 'recipe__ingredient__unit').annotate(Sum('recipe__ingredient__value'))
+    items = Meal.objects.filter(date__gte=dateFrom, date__lt=dateTo).values('meal_recipes__recipe__ingredient__name', 'meal_recipes__recipe__ingredient__unit').annotate(Sum('meal_recipes__recipe__ingredient__value'))
     return render_to_response('recipeList/shopping_list.html', {'items': items, 'dateFrom': dateFrom, 'dateTo': dateTo}, RequestContext(request))
 
 
-def ingredient_detail(request, pk):
-    ingredient = Ingredient.objects.get(pk=pk)
-    recipe_list = Recipe.objects.filter(ingredient__name=ingredient.name)
-    return render_to_response('recipeList/recipe_list.html', {'recipe_list': recipe_list, 'ingredient': ingredient}, RequestContext(request))
+def ingredient_detail(request, name):
+    recipe_list = Recipe.objects.filter(ingredient__name=name)
+    return render_to_response('recipeList/recipe_list.html', {'recipe_list': recipe_list, 'ingredient': name}, RequestContext(request))
 
 
 def all_ingredients(request):
@@ -34,15 +33,21 @@ def all_ingredients(request):
 
 def meal_detail(request, pk):
     meals = Meal.objects.filter(pk=pk)
+    return render_to_response('recipeList/meal_list.html', {'meal_list': meals}, RequestContext(request))
+
+
+def meal_recipe_detail(request, pk):
+    meals = Meal_Recipes.objects.filter(pk=pk)
     if request.method == 'POST':
-        if 'star' in request.POST:
+        if 'star' in request.POST and str(request.POST['star']) is not '':
             meals[0].rating_set.create(stars=request.POST['star'])
-        if 'name' in request.POST and 'body' in request.POST:
+        if 'name' in request.POST and str(request.POST['name']) is not '' and 'body' in request.POST and str(request.POST['body']) is not '':
+            print request.POST
             meals[0].comment_set.create(name=request.POST['name'], body=request.POST['body'])
 
-    meals = meals.annotate(avg_rating=Avg('rating__stars'))
+    # meals = meals.annotate(avg_rating=Avg('rating__stars'))
 
-    return render_to_response('recipeList/meal_detail.html', {'meal': meals[0]}, RequestContext(request))
+    return render_to_response('recipeList/meal_recipe_detail.html', {'meal': meals[0]}, RequestContext(request))
 
 
 def today(request):

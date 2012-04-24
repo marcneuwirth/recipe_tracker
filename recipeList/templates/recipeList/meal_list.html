@@ -5,12 +5,22 @@
 {% block content %}
 {% if today %}
 <h1>Today's Meals</h1>
+{% elif meal_list|length == 1 %}
 {% else %}
 <h1>All Meals</h1>
 {% endif %}
-<ul>
+<ul class="unstyled">
 {% for meal in meal_list %}
-  <li><a href="{% url meal_detail meal.id %}">{{ meal.date|date:'m/d/Y'}}</a>: <a href="{% url recipe_detail meal.recipe.id %}">{{ meal.recipe.name }}</a></li>
+  <li>
+  	{{ meal.date|date:'m/d/Y'}} - {{ meal.meal_time }}:
+  	<ul>
+  		{% for meal_recipe in meal.meal_recipes_set.all %}
+  		<li>
+  			<a href="{% url meal_recipe_detail meal_recipe.id %}">{{ meal_recipe.recipe.name }}</a>
+  		</li>
+  		{% endfor %}
+  	</ul>
+  </li>
 {% endfor %}
 </ul>
 {% endblock %}

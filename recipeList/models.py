@@ -5,7 +5,7 @@ from django.contrib import admin
 class Recipe(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200)
-    cookingTime = models.IntegerField()
+    cooking_time = models.IntegerField()
     reference = models.URLField(null=True, blank=True)
     instruction = models.TextField(null=True, blank=True)
 
@@ -42,14 +42,28 @@ class Ingredient(models.Model):
     def __unicode__(self):
         return '%s' % (self.name)
 
+MEALTIMES = (
+    ('Breakfast', 'Breakfast'),
+    ('Lunch', 'Lunch'),
+    ('Dinner', 'Dinner'),
+    ('Snack', 'Snack'),
+)
+
 
 class Meal(models.Model):
     date = models.DateField()
-    pricePerServing = models.FloatField(null=True, blank=True)
-    recipe = models.ForeignKey(Recipe)
+    servings = models.IntegerField(null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
+    meal_time = models.CharField(max_length=32, null=True, blank=True, choices=MEALTIMES)
+    recipes = models.ManyToManyField(Recipe, through='Meal_Recipes')
 
     def __unicode__(self):
-        return '%s' % (self.date)
+        return '%s - %s' % (self.date, self.meal_time)
+
+
+class Meal_Recipes(models.Model):
+    meal = models.ForeignKey(Meal)
+    recipe = models.ForeignKey(Recipe)
 
 STARS = (
     ('1', 1),
@@ -63,7 +77,7 @@ STARS = (
 class Rating(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     stars = models.IntegerField(choices=STARS)
-    meal = models.ForeignKey(Meal)
+    meal_recipe = models.ForeignKey(Meal_Recipes)
 
     def __unicode__(self):
         return '%s' % (self.stars)
@@ -73,7 +87,7 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200)
     body = models.TextField()
-    meal = models.ForeignKey(Meal)
+    meal_recipe = models.ForeignKey(Meal_Recipes)
 
     def __unicode__(self):
         return '%s' % (self.name)

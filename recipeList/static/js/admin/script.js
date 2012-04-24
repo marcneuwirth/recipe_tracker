@@ -1,10 +1,11 @@
 $(document).ready(function(){
 	var $body = $('body');
 
-	if($body.hasClass('recipeList-meal')){
-		$('#id_recipe').chosen();
-	}
-	else if( $body.hasClass('recipeList-recipe')){
+	var chosen = function(selector){
+		$('.form-row').not('.empty-form').find(selector).chosen();
+	};
+
+	if( $body.hasClass('recipeList-recipe')){
 		$.getJSON('/ingredients.json', function(json){
 			var ingredients = json.ingredients;
 
@@ -18,12 +19,13 @@ $(document).ready(function(){
 				autocomplete();
 			});
 			autocomplete();
-
-			$('.dynamic-ingredient_set .field-unit select').chosen();
-
-			$('.add-row a').on('click', function(){
-				$('.dynamic-ingredient_set .field-unit select').chosen();
-			});
 		});
 	}
+
+	chosen('.field-unit select, .field-recipe select');
+
+	$('body').on('click', '.add-row a', function(){
+		console.log(this);
+		chosen('.field-unit select, .field-recipe select');
+	});
 });

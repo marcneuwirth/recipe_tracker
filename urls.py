@@ -21,6 +21,15 @@ class RecipeAdmin(admin.ModelAdmin):
     inlines = [IngredientInline]
 
 
+class RecipesInline(admin.TabularInline):
+    model = Meal.recipes.through
+
+
+class MealAdmin(admin.ModelAdmin):
+    inlines = [RecipesInline]
+    exclude = ('recipes',)
+
+
 class CommentInline(admin.TabularInline):
     model = Comment
     extra = 0
@@ -31,24 +40,26 @@ class RatingInline(admin.TabularInline):
     extra = 0
 
 
-class MealAdmin(admin.ModelAdmin):
+class Meal_RecipesAdmin(admin.ModelAdmin):
     inlines = [CommentInline, RatingInline]
 
 admin.autodiscover()
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Meal, MealAdmin)
+admin.site.register(Meal_Recipes, Meal_RecipesAdmin)
 
 urlpatterns = patterns('',
     url(r'^recipe/(?P<pk>[a-z\d]+)/$', recipe_detail, name='recipe_detail'),
     url(r'^$', recipe_list, name='recipe_list'),
 
     url(r'^meal/(?P<pk>[a-z\d]+)/$', 'recipeList.views.meal_detail', name='meal_detail'),
+    url(r'^meal/recipe/(?P<pk>[a-z\d]+)/$', 'recipeList.views.meal_recipe_detail', name='meal_recipe_detail'),
     url(r'^meals/$', meal_list, name='meal_list'),
 
     url(r'^shoppinglist/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d\d?)$', 'recipeList.views.shopping_list', name='shoppinglist'),
     url(r'^shoppinglist/$', 'recipeList.views.shopping_list', name='shoppinglistNow'),
 
-    url(r'^ingredient/(?P<pk>[a-z\d]+)/$', 'recipeList.views.ingredient_detail', name='ingredient_detail'),
+    url(r'^ingredient/(?P<name>[a-zA-Z\d -]+)/$', 'recipeList.views.ingredient_detail', name='ingredient_detail'),
     url(r'^ingredients\.json$', 'recipeList.views.all_ingredients', name='all_ingredients'),
 
     url(r'^today/$', 'recipeList.views.today', name='today'),

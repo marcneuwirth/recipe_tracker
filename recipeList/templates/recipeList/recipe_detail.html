@@ -4,16 +4,16 @@
 
 {% load markup %}
 {% block content %}
-<h1>{{ recipe.name }} - {{ recipe.cookingTime }} minutes</h1>
+<h1>{{ recipe.name }} - {{ recipe.cooking_time }} minutes</h1>
 <h2>Ingredients</h2>
 <ul>
 {% for ingredient in recipe.ingredient_set.all %}
-  <li><a href="{% url ingredient_detail ingredient.id %}">{{ ingredient.name }}</a>: {{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} {% if ingredient.instruction %}- <em>{{ ingredient.instruction }}</em>{% endif %}</li>
+  <li>{{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} <a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a>{% if ingredient.instruction %} - <em>{{ ingredient.instruction }}</em>{% endif %}</li>
 {% endfor %}
 </ul>
 
 <h2>Instructions</h2>
-<p>{{ recipe.instruction|markdown }}</p>
+<p>{{ recipe.instruction|markdown:"safe" }}</p>
 
 {% if recipe.meal_set.all|length > 0 %}
 <h2>Scheduled Meals</h2>
