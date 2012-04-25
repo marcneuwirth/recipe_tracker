@@ -40,13 +40,13 @@ class RatingInline(admin.TabularInline):
     extra = 0
 
 
-class Meal_RecipesAdmin(admin.ModelAdmin):
+class Meal_RecipeAdmin(admin.ModelAdmin):
     inlines = [CommentInline, RatingInline]
 
 admin.autodiscover()
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Meal, MealAdmin)
-admin.site.register(Meal_Recipes, Meal_RecipesAdmin)
+admin.site.register(Meal_Recipe, Meal_RecipeAdmin)
 
 urlpatterns = patterns('',
     url(r'^recipe/(?P<pk>[a-z\d]+)/$', recipe_detail, name='recipe_detail'),

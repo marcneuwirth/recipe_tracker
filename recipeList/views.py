@@ -17,7 +17,7 @@ def shopping_list(request, year=None, month=None, day=None):
 
     dateTo = dateFrom + relativedelta(days=6)
 
-    items = Meal.objects.filter(date__gte=dateFrom, date__lt=dateTo).values('meal_recipes__recipe__ingredient__name', 'meal_recipes__recipe__ingredient__unit').annotate(Sum('meal_recipes__recipe__ingredient__value'))
+    items = Meal.objects.filter(date__gte=dateFrom, date__lt=dateTo).values('meal_recipe__recipe__ingredient__name', 'meal_recipe__recipe__ingredient__unit').annotate(Sum('meal_recipe__recipe__ingredient__value'))
     return render_to_response('recipeList/shopping_list.html', {'items': items, 'dateFrom': dateFrom, 'dateTo': dateTo}, RequestContext(request))
 
 
@@ -37,7 +37,7 @@ def meal_detail(request, pk):
 
 
 def meal_recipe_detail(request, pk):
-    meals = Meal_Recipes.objects.filter(pk=pk)
+    meals = Meal_Recipe.objects.filter(pk=pk)
     if request.method == 'POST':
         if 'star' in request.POST and str(request.POST['star']) is not '':
             meals[0].rating_set.create(stars=request.POST['star'])

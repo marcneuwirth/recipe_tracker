@@ -10,7 +10,7 @@
   <li>
   	<label class="checkbox">
 		<input type="checkbox" />
-		{{ item.meal_recipes__recipe__ingredient__value__sum }} {{ item.meal_recipes__recipe__ingredient__unit|default_if_none:"" }} {{ item.meal_recipes__recipe__ingredient__name }}
+		{{ item.meal_recipe__recipe__ingredient__value__sum }} {{ item.meal_recipe__recipe__ingredient__unit|default_if_none:"" }} {{ item.meal_recipe__recipe__ingredient__name }}
 	</label>
   </li>
 {% endfor %}

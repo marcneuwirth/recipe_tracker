@@ -12,4 +12,5 @@
 {% for recipe in recipe_list %}
     <li><a href="{% url recipe_detail recipe.id %}">{{ recipe.name }}</a>: {{ recipe.ingredient_set.all|length }}  ingredients</li>
 {% endfor %}
+</ul>
 {% endblock %}

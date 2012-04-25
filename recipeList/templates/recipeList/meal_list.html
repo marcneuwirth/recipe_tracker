@@ -14,7 +14,7 @@
   <li>
   	{{ meal.date|date:'m/d/Y'}} - {{ meal.meal_time }}:
   	<ul>
-  		{% for meal_recipe in meal.meal_recipes_set.all %}
+  		{% for meal_recipe in meal.meal_recipe_set.all %}
   		<li>
   			<a href="{% url meal_recipe_detail meal_recipe.id %}">{{ meal_recipe.recipe.name }}</a>
   		</li>
