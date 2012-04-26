@@ -12,13 +12,17 @@ meal_list = ListView.as_view(model=Meal)
 from django.contrib import admin
 
 
+class ImmageInline(admin.TabularInline):
+    model = Image
+
+
 class IngredientInline(admin.TabularInline):
     model = Ingredient
     extra = 10
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = [IngredientInline]
+    inlines = [IngredientInline, ImmageInline]
 
 
 class RecipesInline(admin.TabularInline):
