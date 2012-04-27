@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.views.generic import ListView, DetailView
+from django.conf import settings
 from recipeList.models import *
 
 # Default Views
@@ -67,6 +68,8 @@ urlpatterns = patterns('',
     url(r'^ingredients\.json$', 'recipeList.views.all_ingredients', name='all_ingredients'),
 
     url(r'^today/$', 'recipeList.views.today', name='today'),
+
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     # Examples:
     # url(r'^$', 'recipes.views.home', name='home'),
     # url(r'^recipes/', include('recipes.foo.urls')),
