@@ -17,7 +17,7 @@ def shopping_list(request, year=None, month=None, day=None):
 
     dateTo = dateFrom + relativedelta(days=6)
 
-    items = Meal.objects.filter(date__gte=dateFrom, date__lt=dateTo).values('meal_recipe__recipe__ingredient__name', 'meal_recipe__recipe__ingredient__unit').annotate(Sum('meal_recipe__recipe__ingredient__value'))
+    items = Meal.objects.filter(date__gte=dateFrom, date__lt=dateTo).values('meal_recipe__recipe__ingredient__name', 'meal_recipe__recipe__ingredient__unit').annotate(Sum('meal_recipe__recipe__ingredient__value')).order_by()
     return render_to_response('recipeList/shopping_list.html', {'items': items, 'dateFrom': dateFrom, 'dateTo': dateTo}, RequestContext(request))
 
 
