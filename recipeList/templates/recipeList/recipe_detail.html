@@ -4,24 +4,31 @@
 
 {% load markup %}
 {% block content %}
-<h1>{{ recipe.name }} - {{ recipe.cooking_time }} minutes</h1>
-<h2>Ingredients</h2>
-<ul>
-{% for ingredient in recipe.ingredient_set.all %}
-  <li>{{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} <a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a>{% if ingredient.instruction %} - <em>{{ ingredient.instruction }}</em>{% endif %}</li>
-{% endfor %}
-</ul>
+	<h1>{{ recipe.name }}{% if user.is_active and user.is_staff %} - {{ recipe.cooking_time }} minutes{% endif %}</h1>
+	<h2>Ingredients</h2>
+	<ul>
+	{% for ingredient in recipe.ingredient_set.all %}
+		{% if user.is_active and user.is_staff %}
+			<li>{{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} <a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a>{% if ingredient.instruction %} - <em>{{ ingredient.instruction }}</em>{% endif %}</li>
+		{% else %}
+			<li><a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
 
-<h2>Instructions</h2>
-<p>{{ recipe.instruction|markdown:"safe" }}</p>
+	{% if user.is_active and user.is_staff %}
+		<h2>Instructions</h2>
+		<p>{{ recipe.instruction|markdown:"safe" }}</p>
 
-{% if recipe.meal_set.all|length > 0 %}
-<h2>Scheduled Meals</h2>
-<ul>
-{% for meal in recipe.meal_set.all %}
-  <li><a href="{% url meal_detail meal.id %}">{{ meal.date|date:'m/d/Y' }}</a></li>
-{% endfor %}
-</ul>
-{% endif %}
+		{% if recipe.meal_set.all|length > 0 %}
+			<h2>Scheduled Meals</h2>
+			<ul>
+			{% for meal in recipe.meal_set.all %}
+				<li><a href="{% url meal_detail meal.id %}">{{ meal.date|date:'m/d/Y' }}</a></li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+
+	{% endif %}
 
 {% endblock %}

@@ -10,17 +10,21 @@
 <h1>All Meals</h1>
 {% endif %}
 <ul class="unstyled">
-{% for meal in meal_list %}
-  <li>
-  	{{ meal.date|date:'m/d/Y'}} - {{ meal.meal_time }}:
-  	<ul>
-  		{% for meal_recipe in meal.meal_recipe_set.all %}
-  		<li>
-  			<a href="{% url meal_recipe_detail meal_recipe.id %}">{{ meal_recipe.recipe.name }}</a>
-  		</li>
-  		{% endfor %}
-  	</ul>
-  </li>
-{% endfor %}
+{% if meal_list|length == 0 %}
+	<h2>No Meals</h2>
+{% else %}
+	{% for meal in meal_list %}
+	  <li>
+	  	{{ meal.date|date:'m/d/Y'}} - {{ meal.meal_time }}:
+	  	<ul>
+	  		{% for meal_recipe in meal.meal_recipe_set.all %}
+	  		<li>
+	  			<a href="{% url meal_recipe_detail meal_recipe.id %}">{{ meal_recipe.recipe.name }}</a>
+	  		</li>
+	  		{% endfor %}
+	  	</ul>
+	  </li>
+	{% endfor %}
+{% endif %}
 </ul>
 {% endblock %}
