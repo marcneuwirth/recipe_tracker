@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from dateutil.relativedelta import relativedelta
-from django.db.models import Sum, Avg, Count
+from django.db.models import Sum, Avg, Count, F, Q
 from recipeList.models import *
 from datetime import datetime, date
 
@@ -17,7 +17,14 @@ def shopping_list(request, year=None, month=None, day=None):
 
     dateTo = dateFrom + relativedelta(days=6)
 
-    items = Meal.objects.filter(date__gte=dateFrom, date__lt=dateTo).values('meal_recipe__recipe__ingredient__name', 'meal_recipe__recipe__ingredient__unit').annotate(Sum('meal_recipe__recipe__ingredient__value')).order_by()
+    items = Meal.objects \
+        .filter(date__gte=dateFrom, date__lt=dateTo) \
+        .filter(Q(meal_recipe__recipe__ingredient__ingredient_type__isnull=True) | Q(meal_recipe__recipe__ingredient__ingredient_type=F('meal_recipe__meal_type'))) \
+        .values('meal_recipe__recipe__ingredient__name', 'meal_recipe__recipe__ingredient__unit', 'meal_recipe__recipe__servings', 'meal_recipe__servings') \
+        .annotate(Sum('meal_recipe__recipe__ingredient__value')) \
+        .order_by()
+
+    print items.query
     return render_to_response('recipeList/shopping_list.html', {'items': items, 'dateFrom': dateFrom, 'dateTo': dateTo}, RequestContext(request))
 
 

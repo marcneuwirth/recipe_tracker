@@ -19,7 +19,7 @@
 	  	<ul>
 	  		{% for meal_recipe in meal.meal_recipe_set.all %}
 	  		<li>
-	  			<a href="{% url meal_recipe_detail meal_recipe.id %}">{{ meal_recipe.recipe.name }}</a>
+	  			<a href="{% url meal_recipe_detail meal_recipe.id %}">{{ meal_recipe.recipe.name }}</a>{% if meal_recipe.servings %} - {{ meal_recipe.servings }} serving{% if meal_recipe.servings > 1 %}s{% endif %}{% endif %} {{ meal_recipe.meal_type|default:"" }}
 	  		</li>
 	  		{% endfor %}
 	  	</ul>

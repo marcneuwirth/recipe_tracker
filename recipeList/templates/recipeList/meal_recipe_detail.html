@@ -35,6 +35,14 @@
 		{% csrf_token %}
 	</fieldset>
 </form>
+<ul>
+<h2>Ingredients</h2>
+{% for ingredient in meal.recipe.ingredient_set.all %}
+	{% if meal.meal_type == ingredient.ingredient_type or ingredient.ingredient_type == None %}
+		<li><a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a></li>
+	{% endif %}
+{% endfor %}
+</ul>
 
 {% if meal.rating_set.all|length > 0 %}
 <h2>Ratings</h2>

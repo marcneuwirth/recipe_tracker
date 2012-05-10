@@ -9,9 +9,9 @@
 	<ul>
 	{% for ingredient in recipe.ingredient_set.all %}
 		{% if user.is_active and user.is_staff %}
-			<li>{{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} <a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a>{% if ingredient.instruction %} - <em>{{ ingredient.instruction }}</em>{% endif %}</li>
+			<li>{{ ingredient.value }} {{ ingredient.unit|default_if_none:"" }} <a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a>{% if ingredient.instruction %} - <em>{{ ingredient.instruction }}</em>{% endif %}{% if ingredient.ingredient_type != None %} - <strong>{{ ingredient.ingredient_type }}{% endif %}</strong></li>
 		{% else %}
-			<li><a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a></li>
+			<li><a href="{% url ingredient_detail ingredient.name %}">{{ ingredient.name }}</a>{% if ingredient.ingredient_type != None %} - <strong>{{ ingredient.ingredient_type }}{% endif %}</strong></li>
 		{% endif %}
 	{% endfor %}
 	</ul>

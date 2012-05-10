@@ -42,12 +42,19 @@ UNITS = (
     ('can', 'can'),
 )
 
+MEALTYPES = (
+    ('Omnivore', 'Omnivore'),
+    ('Vegetarian', 'Vegetarian'),
+    ('Non Dairy', 'Non Dairy'),
+)
+
 
 class Ingredient(models.Model):
     value = models.FloatField()
     unit = models.CharField(max_length=32, null=True, blank=True, choices=UNITS)
     name = models.CharField(max_length=200)
     instruction = models.CharField(max_length=200, null=True, blank=True)
+    ingredient_type = models.CharField(max_length=32, null=True, blank=True, choices=MEALTYPES)
     recipe = models.ForeignKey(Recipe)
 
     def __unicode__(self):
@@ -63,7 +70,6 @@ MEALTIMES = (
 
 class Meal(models.Model):
     date = models.DateField()
-    servings = models.IntegerField(null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
     meal_time = models.CharField(max_length=32, null=True, blank=True, choices=MEALTIMES)
     recipes = models.ManyToManyField(Recipe, through='Meal_Recipe')
@@ -78,6 +84,8 @@ class Meal(models.Model):
 class Meal_Recipe(models.Model):
     meal = models.ForeignKey(Meal)
     recipe = models.ForeignKey(Recipe)
+    meal_type = models.CharField(max_length=32, null=True, blank=True, choices=MEALTYPES)
+    servings = models.IntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ['meal__date', 'recipe__name']
