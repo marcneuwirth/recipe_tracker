@@ -54,20 +54,20 @@ admin.site.register(Meal, MealAdmin)
 admin.site.register(Meal_Recipe, Meal_RecipeAdmin)
 
 urlpatterns = patterns('',
-    url(r'^recipe/(?P<pk>[a-z\d]+)/$', recipe_detail, name='recipe_detail'),
-    url(r'^$', recipe_list, name='recipe_list'),
+    url(r'^recipes/recipe/(?P<pk>[a-z\d]+)/$', recipe_detail, name='recipe_detail'),
+    url(r'^recipes/$', recipe_list, name='recipe_list'),
 
-    url(r'^meal/(?P<pk>[a-z\d]+)/$', 'recipeList.views.meal_detail', name='meal_detail'),
-    url(r'^meal/recipe/(?P<pk>[a-z\d]+)/$', 'recipeList.views.meal_recipe_detail', name='meal_recipe_detail'),
-    url(r'^meals/$', meal_list, name='meal_list'),
+    url(r'^recipes/meal/(?P<pk>[a-z\d]+)/$', 'recipeList.views.meal_detail', name='meal_detail'),
+    url(r'^recipes/meal/recipe/(?P<pk>[a-z\d]+)/$', 'recipeList.views.meal_recipe_detail', name='meal_recipe_detail'),
+    url(r'^recipes/meals/$', meal_list, name='meal_list'),
 
-    url(r'^shoppinglist/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d\d?)$', 'recipeList.views.shopping_list', name='shoppinglist'),
-    url(r'^shoppinglist/$', 'recipeList.views.shopping_list', name='shoppinglistNow'),
+    url(r'^recipes/shoppinglist/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d\d?)$', 'recipeList.views.shopping_list', name='shoppinglist'),
+    url(r'^recipes/shoppinglist/$', 'recipeList.views.shopping_list', name='shoppinglistNow'),
 
-    url(r'^ingredient/(?P<name>[a-zA-Z\d -]+)/$', 'recipeList.views.ingredient_detail', name='ingredient_detail'),
-    url(r'^ingredients\.json$', 'recipeList.views.all_ingredients', name='all_ingredients'),
+    url(r'^recipes/ingredient/(?P<name>[a-zA-Z\d -]+)/$', 'recipeList.views.ingredient_detail', name='ingredient_detail'),
+    url(r'^recipes/ingredients\.json$', 'recipeList.views.all_ingredients', name='all_ingredients'),
 
-    url(r'^today/$', 'recipeList.views.today', name='today'),
+    url(r'^recipes/today/$', 'recipeList.views.today', name='today'),
 
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     # Examples:
@@ -78,5 +78,5 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^recipes/admin/', include(admin.site.urls)),
 )

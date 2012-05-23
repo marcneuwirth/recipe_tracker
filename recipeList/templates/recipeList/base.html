@@ -19,17 +19,17 @@
 			<div class="span2">
 				<ul class="nav nav-list">
 					<li>
-						<a href="/">Recipe List</a>
+						<a href="/recipes/">Recipe List</a>
 					</li>
 					<li>
-						<a href="/today">Today's Meals</a>
+						<a href="/recipes/today/">Today's Meals</a>
 					</li>
 					{% if user.is_active and user.is_staff %}
 					<li>
-						<a href="/meals">All Meals</a>
+						<a href="/recipes/meals/">All Meals</a>
 					</li>
 					<li>
-						<a href="/shoppinglist">Shopping List</a>
+						<a href="/recipes/shoppinglist/">Shopping List</a>
 					</li>
 					{% endif %}
 				</ul>
